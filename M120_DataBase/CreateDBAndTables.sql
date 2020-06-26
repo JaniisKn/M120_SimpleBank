@@ -1,10 +1,11 @@
---CREATE DATABASE SimpleBankDB;
-Use SimpleBankDB;
+--CREATE DATABASE M120_SimpleBankDB;
+Use M120_SimpleBankDB;
 
 CREATE TABLE Persons(
 	PersonID int NOT NULL IDENTITY(1,1),
     LastName varchar(255) NOT NULL,
     FirstName varchar(255) NOT NULL,
+	Birthday date NOT NULL,
 	EMail varchar(255) NOT NULL,
 	TelNumber varchar(255),
 	Address varchar(255) NOT NULL,
