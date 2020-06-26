@@ -32,10 +32,18 @@ namespace M120_SimpleBank.ViewModel
             get => newPerson ?? (newPerson = new Person());
             set
             {
-                newPerson = value;
+                FirstName = value;
+                LastName = value;
+                EMail = value;
+                TelNumber = value;
+                Address = value;
+                Place = value;
+                PostCode = value;
+                Birthday = value;
                 RaisePropertyChanged();
             }
         }
+        
         #endregion
 
         #region Commands
@@ -64,10 +72,18 @@ namespace M120_SimpleBank.ViewModel
         public ICommand SavePersonCommand => savePersonCommand ?? (savePersonCommand = new RelayCommand(OnSavePerson));
         private ICommand savePersonCommand;
         private Person newPerson;
+        private Person FirstName;
+        private Person LastName;
+        private Person EMail;
+        private Person TelNumber;
+        private Person Address;
+        private Person Place;
+        private Person PostCode;
+        private Person Birthday;
 
         private void OnSavePerson(object sender)
         {
-            this.BaseDataConnection.CreatePerson(newPerson);
+            this.BaseDataConnection.CreatePerson(NewPerson);
 
 
             FortuneOverviewView fortuneOverviewView = new FortuneOverviewView();

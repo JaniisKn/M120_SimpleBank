@@ -31,7 +31,7 @@
             <Label Content="Vorname*" Grid.Column="0" FontSize="15" Margin="10"/>
             <TextBox x:Name="firstNameTextBox" Text="{Binding NewPerson.FirstName}" Grid.Column="1" Margin="10"/>
             <Label Content="Name*" Grid.Column="2" FontSize="15" Margin="10"/>
-            <TextBox x:Name="lastNameTextBox" Grid.Column="3" Margin="10"/>
+            <TextBox x:Name="lastNameTextBox" Text="{Binding NewPerson.LastName}" Grid.Column="3" Margin="10"/>
         </Grid>
 
         <Grid Grid.Row="2" Margin="40, 10">
@@ -43,9 +43,9 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="E-Mail*" Grid.Column="0" FontSize="15" Margin="10"/>
-            <TextBox x:Name="eMailTextBox" Grid.Column="1" Margin="10"/>
-          <Label Content="Tel." Grid.Column="2" FontSize="15" Margin="10"/>
-          <TextBox x:Name="phoneNumberTextBox" Grid.Column="3" Margin="10"/>
+            <TextBox x:Name="eMailTextBox" Text="{Binding NewPerson.EMail}" Grid.Column="1" Margin="10"/>
+            <Label Content="Tel." Grid.Column="2" FontSize="15" Margin="10"/>
+            <TextBox x:Name="telNumberTextBox" Text="{Binding NewPerson.TelNumber}" Grid.Column="3" Margin="10"/>
         </Grid>
 
         <Grid Grid.Row="3" Margin="40, 10">
@@ -58,9 +58,9 @@
 
           
           <Label Content="Geburtstag*" Grid.Column="0" FontSize="15" Margin="10"/>
-          <TextBox x:Name="birthdayTextBox" Grid.Column="1" Margin="10"/>
+          <TextBox x:Name="birthdayTextBox" Text="{Binding NewPerson.Birthday}" Grid.Column="1" Margin="10"/>
           <Label Content="Adresse*" Grid.Column="2" FontSize="15" Margin="10"/>
-          <TextBox x:Name="adressTextBox" Grid.Column="3" Margin="10"/>
+          <TextBox x:Name="adressTextBox" Text="{Binding NewPerson.Address}" Grid.Column="3" Margin="10"/>
         </Grid>
 
         <Grid Grid.Row="4" Margin="40, 10">
@@ -72,9 +72,9 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="PLZ*" Grid.Column="0" FontSize="15" Margin="10"/>
-            <TextBox x:Name="postCodeTextBox" Grid.Column="1" Margin="10"/>
+            <TextBox x:Name="postCodeTextBox" Text="{Binding NewPerson.PostCode}" Grid.Column="1" Margin="10"/>
             <Label Content="Wohnort*" Grid.Column="2" FontSize="15" Margin="10"/>
-            <TextBox x:Name="placeTextBox" Grid.Column="3" Margin="10"/>
+            <TextBox x:Name="placeTextBox" Text="{Binding NewPerson.Place}" Grid.Column="3" Margin="10"/>
         </Grid>
 
         <Grid Grid.Row="5" Margin="40, 10">
