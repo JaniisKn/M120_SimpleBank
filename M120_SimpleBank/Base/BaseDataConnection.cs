@@ -20,21 +20,20 @@ namespace M120_SimpleBank.Base
         /// Creates the person.
         /// </summary>
         /// <param name="firstName">The first name.</param>
-        void CreatePerson(string firstName);
+        void CreatePerson(Person person);
     }
 
     #endregion
 
     public class BaseDataConnection : IBaseDataConnection
     {
-        private const string ConnectionString = @"Data Source=LAPTOP-M57FQKF2\SQLEXPRESS;Initial Catalog=SimpleBank;Integrated Security=True";
+        private const string ConnectionString = @"Data Source=LAPTOP-M57FQKF2\SQLEXPRESS;Initial Catalog=M120_SimpleBankDB;Integrated Security=True";
 
         public void GetPersonById(int personID)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-                string sql = "SELECT [PersonID],[LastName],[FirstName],[EMail],[TelNumber],[Address], pl.Place, pl.PostCode FROM [SimpleBank].[dbo].[Persons] pe" +
-                            "Inner Join Places pl on pe.PlaceID = pe.PlaceID WHERE PersonID = @PersonID";
+                string sql = "SELECT [PersonID],[LastName],[FirstName],[EMail],[TelNumber],[Address],[PostCode],[Place] FROM [dbo].[Persons] WHERE PersonID = @PersonID";
                 var parameters = new { PersonID = personID };
                 var person = connection.QuerySingle<Person>(sql, parameters);
             }
@@ -42,12 +41,9 @@ namespace M120_SimpleBank.Base
 
         public void GetAllPersons()
         {
-            string sql = "SELECT [PersonID],[LastName],[FirstName],[EMail],[TelNumber],[Address], pl.Place, pl.PostCode FROM [SimpleBank].[dbo].[Persons] pe" +
-                         "Inner Join Places pl on pe.PlaceID = pe.PlaceID";
-
             using (var connection = new SqlConnection(ConnectionString))
             {
-
+                string sql = "SELECT [PersonID],[LastName],[FirstName],[EMail],[TelNumber],[Address],[PostCode],[Place] FROM [dbo].[Persons]";
                 var person = connection.Query<Person>(sql).ToList();
             }
         }
@@ -55,14 +51,26 @@ namespace M120_SimpleBank.Base
         /// <summary>
         /// Creates the person.
         /// </summary>
-        /// <param name="firstName">The first name.</param>
-        public void CreatePerson(string firstName)
+        /// <param person="Includes all Information">The first name.</param>
+        public void CreatePerson(Person person)
         {
-            const string sql = "INSERT INTO Person VALUES (@Firstname)";
+            const string sql = "INSERT INTO [dbo].[Persons] ([LastName],[FirstName],[Birthday],[EMail],[TelNumber],[Address],[PostCode],[Place])" +
+                                "VALUES(@Lastname, @FirstName, @Birthday, @Email, @TelNumber, @Address, @PostCode, @Place);";
+            var insertPersonParameters = new
+            {
+                Lastname = person.LastName,
+                Firstname = person.FirstName,
+                Birthday = person.Birthday,
+                Email = person.EMail,
+                TelNumber = person.TelNumber,
+                Address = person.Address,
+                PostCode = "1234",
+                Place = "kein Ort"
+            };
 
             using (var connection = new SqlConnection(ConnectionString))
             {
-                connection.Execute(sql);
+                connection.Execute(sql, insertPersonParameters);
             }
         }
     }
