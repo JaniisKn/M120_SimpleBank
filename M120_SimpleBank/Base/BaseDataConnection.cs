@@ -31,5 +31,8 @@ namespace M120_SimpleBank.Base
                 var person = connection.Query<Person>(sql).ToList();
             }
         }
+        private void CreatePerson(string firstName) { 
+            
+        }
     }
 }
