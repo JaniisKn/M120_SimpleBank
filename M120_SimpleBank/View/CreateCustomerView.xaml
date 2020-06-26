@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="createCustomer" Height="450" Width="800">
+        Title="createCustomer" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -34,19 +36,34 @@
 
         <Grid Grid.Row="2" Margin="40, 10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="2*"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
             <Label Content="E-Mail*" Grid.Column="0" FontSize="15" Margin="10"/>
             <TextBox x:Name="eMailTextBox" Grid.Column="1" Margin="10"/>
-            <Label Content="Tel." Grid.Column="2" FontSize="15" Margin="10"/>
-            <TextBox x:Name="phoneNumberTextBox" Grid.Column="3" Margin="10"/>
+          <Label Content="Tel." Grid.Column="2" FontSize="15" Margin="10"/>
+          <TextBox x:Name="phoneNumberTextBox" Grid.Column="3" Margin="10"/>
         </Grid>
 
         <Grid Grid.Row="3" Margin="40, 10">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+          </Grid.ColumnDefinitions>
+
+          
+          <Label Content="Geburtstag*" Grid.Column="0" FontSize="15" Margin="10"/>
+          <TextBox x:Name="birthdayTextBox" Grid.Column="1" Margin="10"/>
+          <Label Content="Adresse*" Grid.Column="2" FontSize="15" Margin="10"/>
+          <TextBox x:Name="adressTextBox" Grid.Column="3" Margin="10"/>
+        </Grid>
+
+        <Grid Grid.Row="4" Margin="40, 10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2*"/>
@@ -54,13 +71,13 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Geburtstag*" Grid.Column="0" FontSize="15" Margin="10"/>
-            <TextBox x:Name="birthdayTextBox" Grid.Column="1" Margin="10"/>
+            <Label Content="PLZ*" Grid.Column="0" FontSize="15" Margin="10"/>
+            <TextBox x:Name="postCodeTextBox" Grid.Column="1" Margin="10"/>
             <Label Content="Wohnort*" Grid.Column="2" FontSize="15" Margin="10"/>
-            <TextBox x:Name="adressTextBox" Grid.Column="3" Margin="10"/>
+            <TextBox x:Name="placeTextBox" Grid.Column="3" Margin="10"/>
         </Grid>
 
-        <Grid Grid.Row="4" Margin="40, 10">
+        <Grid Grid.Row="5" Margin="40, 10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
