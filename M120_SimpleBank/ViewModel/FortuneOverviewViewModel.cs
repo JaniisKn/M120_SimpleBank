@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using SimpleBank.View;
-using SimpleBank.Base;
+using M120_SimpleBank.View;
+using M120_SimpleBank.Base;
 using System.ComponentModel;
 
-namespace SimpleBank.ViewModel
+namespace M120_SimpleBank.ViewModel
 {
     public class FortuneOverviewViewModel : Base.Base
     {

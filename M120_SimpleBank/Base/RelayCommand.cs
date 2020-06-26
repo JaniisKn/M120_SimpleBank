@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace SimpleBank.Base
+namespace M120_SimpleBank.Base
 {
     public class RelayCommand : ICommand
     {

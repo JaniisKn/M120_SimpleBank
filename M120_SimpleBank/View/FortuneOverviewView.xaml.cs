@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SimpleBank.ViewModel;
+using M120_SimpleBank.ViewModel;
 
-namespace SimpleBank.View
+namespace M120_SimpleBank.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

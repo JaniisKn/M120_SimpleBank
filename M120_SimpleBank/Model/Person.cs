@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleBank.Model
+namespace M120_SimpleBank.Model
 {
     class Person
     {

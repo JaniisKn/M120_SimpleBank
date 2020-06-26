@@ -5,9 +5,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using SimpleBank.Base;
+using M120_SimpleBank.Base;
 
-namespace SimpleBank.Base
+namespace M120_SimpleBank.Base
 {
     public class Base : INotifyPropertyChanged
     {
