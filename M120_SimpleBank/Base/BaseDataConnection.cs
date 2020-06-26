@@ -20,14 +20,14 @@ namespace M120_SimpleBank.Base
         /// Creates the person.
         /// </summary>
         /// <param name="firstName">The first name.</param>
-        void CreatePerson(string firstName);
+        void CreatePerson(Person person);
     }
 
     #endregion
 
     public class BaseDataConnection : IBaseDataConnection
     {
-        private const string ConnectionString = @"Data Source=LAPTOP-M57FQKF2\SQLEXPRESS;Initial Catalog=SimpleBank;Integrated Security=True";
+        private const string ConnectionString = @"Data Source=LAPTOP-M57FQKF2\SQLEXPRESS;Initial Catalog=SimpleBankDB;Integrated Security=True";
 
         public void GetPersonById(int personID)
         {
@@ -55,8 +55,8 @@ namespace M120_SimpleBank.Base
         /// <summary>
         /// Creates the person.
         /// </summary>
-        /// <param name="firstName">The first name.</param>
-        public void CreatePerson(string firstName)
+        /// <param person="Includes all Information">The first name.</param>
+        public void CreatePerson(Person person)
         {
             const string sql = "INSERT INTO Person VALUES (@Firstname)";
 
