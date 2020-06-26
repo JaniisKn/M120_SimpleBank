@@ -16,9 +16,9 @@ CREATE TABLE Persons(
 
 CREATE TABLE AccountTypes(
 	AccountTypeID int NOT NULL IDENTITY(1,1),
+	name varchar(255) NOT NULL,
 	InterestRate FLOAT NOT NULL,
-	PersonID int NOT NULL,
-	PRIMARY KEY (AccountTypeID),
+	PRIMARY KEY (AccountTypeID)
 );
 
 CREATE TABLE Accounts(

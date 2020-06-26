@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace M120_SimpleBank.Model
 {
-    class Account
+    public class Account
     {
-        public int Balance { get; set; }
+        public float Balance { get; set; }
+        public int PersonID { get; set; }
+        public int AccountTypeID { get; set; }
     }
 }

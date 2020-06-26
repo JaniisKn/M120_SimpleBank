@@ -21,6 +21,7 @@ namespace M120_SimpleBank.Base
         /// </summary>
         /// <param name="firstName">The first name.</param>
         void CreatePerson(Person person);
+        void CreateAccount(Account account);
     }
 
     #endregion
@@ -65,8 +66,8 @@ namespace M120_SimpleBank.Base
                 Email = person.EMail,
                 TelNumber = person.TelNumber,
                 Address = person.Address,
-                PostCode = "1234",
-                Place = "kein Ort"
+                PostCode = person.PostCode,
+                Place = person.Place
             };
 
             using (var connection = new SqlConnection(ConnectionString))
@@ -74,6 +75,21 @@ namespace M120_SimpleBank.Base
                 connection.Execute(sql, insertPersonParameters);
             }
         }
+        public void CreateAccount(Account account)
+        {
+            const string sql = "INSERT INTO [dbo].[Accounts]([Balance],[PersonID],[AccountTypeID])" +
+                                "VALUES(@Balance, @PersonID, @AccountTypeID);";
+            var insertAccountParameters = new
+            {
+                Balance = 1000.5,//account.Balance,
+                PersonID = 1,//account.PersonID,
+                AccountTypeID = 1//account.AccountTypeID
+            };
 
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Execute(sql, insertAccountParameters);
+            }
+        }
     }
 }
