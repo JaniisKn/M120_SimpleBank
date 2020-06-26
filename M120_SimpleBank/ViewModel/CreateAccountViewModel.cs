@@ -7,16 +7,40 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using M120_SimpleBank.View;
 using M120_SimpleBank.Base;
+using M120_SimpleBank.Model;
 
 namespace M120_SimpleBank.ViewModel
 {
     public class CreateAccountViewModel : Base.Base
     {
+        #region Properties
+
+        #region Model
+
+        /// <summary>
+        /// Gets the base data connection.
+        /// </summary>
+        public IBaseDataConnection BaseDataConnection => _baseDataAccess ?? (_baseDataAccess = new BaseDataConnection());
+        private IBaseDataConnection _baseDataAccess;
+
+        #endregion
+
         public Action CloseEvent { get; set; }
+        
+        public Person NewPerson
+        {
+            get => newPerson ?? (newPerson = new Person());
+            set
+            {
+                newPerson = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         public ICommand GoBackCommand => goBackCommand ?? (goBackCommand = new RelayCommand(OnGoBack));
         private ICommand goBackCommand;
-        public ICommand OpenCreateCustomerCommand => openCreateCustomerCommand ?? (openCreateCustomerCommand = new RelayCommand(OnOpenCreateCustomer));
-        private ICommand openCreateCustomerCommand;
 
         private void OnGoBack(object sender)
         {
@@ -24,9 +48,25 @@ namespace M120_SimpleBank.ViewModel
             fortuneOverviewView.Show();
             CloseEvent.Invoke();
         }
+        
+        public ICommand OpenCreateCustomerCommand => openCreateCustomerCommand ?? (openCreateCustomerCommand = new RelayCommand(OnOpenCreateCustomer));
+        private ICommand openCreateCustomerCommand;
 
         private void OnOpenCreateCustomer(object sender) 
         {
+            CreateCustomerView createCustomerView = new CreateCustomerView();
+            createCustomerView.Show();
+            CloseEvent.Invoke();
+        }
+
+        public ICommand SaveAccountCommand => saveAccountCommand ?? (saveAccountCommand = new RelayCommand(OnSaveAccount));
+        private ICommand saveAccountCommand;
+        private Person newPerson;
+
+        private void OnSaveAccount(object sender) 
+        {
+            //this.BaseDataConnection.CreateAccount("test");
+
             CreateCustomerView createCustomerView = new CreateCustomerView();
             createCustomerView.Show();
             CloseEvent.Invoke();

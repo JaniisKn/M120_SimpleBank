@@ -27,16 +27,21 @@ namespace M120_SimpleBank.ViewModel
 
         public Action CloseEvent { get; set; }
 
+        public Person NewPerson
+        {
+            get => newPerson ?? (newPerson = new Person());
+            set
+            {
+                newPerson = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
 
         #region Commands
 
         public ICommand GoBackCommand => goBackCommand ?? (goBackCommand = new RelayCommand(OnGoBack));
         private ICommand goBackCommand;
-        public ICommand OpenCreateAccountCommand => openCreateAccountCommand ?? (openCreateAccountCommand = new RelayCommand(OnOpenCreateAccount));
-        private ICommand openCreateAccountCommand;
-        public ICommand SavePersonCommand => savePersonCommand ?? (savePersonCommand = new RelayCommand(OnSavePerson));
-        private ICommand savePersonCommand;
 
         private void OnGoBack(object sender)
         {
@@ -51,32 +56,25 @@ namespace M120_SimpleBank.ViewModel
 
         private void OnOpenCreateAccount(object sender)
         {
-            var test = this.BaseDataConnection.CreatePerson("test");
-
             CreateAccountView createAccountView = new CreateAccountView();
             createAccountView.Show();
             CloseEvent.Invoke();
         }
-
-        public Person NewPerson
-        {
-            get => newPerson ?? (newPerson = new Person());
-            set
-            {
-                newPerson = value;
-                RaisePropertyChanged();
-            }
-        }
-
+        
+        public ICommand SavePersonCommand => savePersonCommand ?? (savePersonCommand = new RelayCommand(OnSavePerson));
+        private ICommand savePersonCommand;
         private Person newPerson;
 
         private void OnSavePerson(object sender)
         {
+            this.BaseDataConnection.CreatePerson(newPerson);
 
 
             FortuneOverviewView fortuneOverviewView = new FortuneOverviewView();
             fortuneOverviewView.Show();
             CloseEvent.Invoke();
         }
+
+        #endregion
     }
 }

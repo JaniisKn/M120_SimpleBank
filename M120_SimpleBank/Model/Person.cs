@@ -13,6 +13,7 @@ namespace M120_SimpleBank.Model
         public string EMail { get; set; }
         public string TelNumber { get; set; }
         public string Address { get; set; }
+        public string Place { get; set; }
         public int PostCode { get; set; }
         public DateTime Birthday { get; set; }
     }
