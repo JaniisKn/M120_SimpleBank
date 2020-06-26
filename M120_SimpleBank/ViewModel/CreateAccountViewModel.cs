@@ -27,12 +27,16 @@ namespace M120_SimpleBank.ViewModel
 
         public Action CloseEvent { get; set; }
         
-        public Person NewPerson
+        public Account NewAccount
         {
-            get => newPerson ?? (newPerson = new Person());
+            get => newAccount ?? (newAccount = new Account());
             set
             {
-                newPerson = value;
+                newAccount = value;
+                PersonID = value;
+                AccountTypeID = value;
+                Balance = value;
+
                 RaisePropertyChanged();
             }
         }
@@ -61,11 +65,14 @@ namespace M120_SimpleBank.ViewModel
 
         public ICommand SaveAccountCommand => saveAccountCommand ?? (saveAccountCommand = new RelayCommand(OnSaveAccount));
         private ICommand saveAccountCommand;
-        private Person newPerson;
+        private Account newAccount;
+        private Account PersonID;
+        private Account AccountTypeID;
+        private Account Balance;
 
         private void OnSaveAccount(object sender) 
         {
-            //this.BaseDataConnection.CreateAccount("test");
+            this.BaseDataConnection.CreateAccount(NewAccount);
 
             CreateCustomerView createCustomerView = new CreateCustomerView();
             createCustomerView.Show();
