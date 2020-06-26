@@ -13,7 +13,24 @@ namespace M120_SimpleBank.ViewModel
 {
     public class CreateCustomerViewModel : Base.Base
     {
+        #region Properties
+
+        #region Model
+
+        /// <summary>
+        /// Gets the base data connection.
+        /// </summary>
+        public IBaseDataConnection BaseDataConnection => _baseDataAccess ?? (_baseDataAccess = new BaseDataConnection());
+        private IBaseDataConnection _baseDataAccess;
+
+        #endregion
+
         public Action CloseEvent { get; set; }
+
+        #endregion
+
+        #region Commands
+
         public ICommand GoBackCommand => goBackCommand ?? (goBackCommand = new RelayCommand(OnGoBack));
         private ICommand goBackCommand;
         public ICommand OpenCreateAccountCommand => openCreateAccountCommand ?? (openCreateAccountCommand = new RelayCommand(OnOpenCreateAccount));
@@ -28,8 +45,14 @@ namespace M120_SimpleBank.ViewModel
             CloseEvent.Invoke();
         }
 
+        public ICommand OpenCreateAccountCommand => openCreateAccountCommand ?? (openCreateAccountCommand = new RelayCommand(OnOpenCreateAccount));
+        private ICommand openCreateAccountCommand;
+
+
         private void OnOpenCreateAccount(object sender)
         {
+            var test = this.BaseDataConnection.CreatePerson("test");
+
             CreateAccountView createAccountView = new CreateAccountView();
             createAccountView.Show();
             CloseEvent.Invoke();

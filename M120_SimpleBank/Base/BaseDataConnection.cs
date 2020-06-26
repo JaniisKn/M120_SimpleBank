@@ -9,30 +9,61 @@ using Dapper;
 
 namespace M120_SimpleBank.Base
 {
-    class BaseDataConnection
-    {
-        public string connectionString = @"Data Source=LAPTOP-M57FQKF2\SQLEXPRESS;Initial Catalog=SimpleBank;Integrated Security=True";
+    #region IBaseDataConnection
 
-        private void GetPersonByID(int personID)
+    public interface IBaseDataConnection
+    {
+        void GetPersonById(int personID);
+        void GetAllPersons();
+
+        /// <summary>
+        /// Creates the person.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        void CreatePerson(string firstName);
+    }
+
+    #endregion
+
+    public class BaseDataConnection : IBaseDataConnection
+    {
+        private const string ConnectionString = @"Data Source=LAPTOP-M57FQKF2\SQLEXPRESS;Initial Catalog=SimpleBank;Integrated Security=True";
+
+        public void GetPersonById(int personID)
         {
-            using (var connection = new SqlConnection(connectionString)) {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
                 string sql = "SELECT [PersonID],[LastName],[FirstName],[EMail],[TelNumber],[Address], pl.Place, pl.PostCode FROM [SimpleBank].[dbo].[Persons] pe" +
                             "Inner Join Places pl on pe.PlaceID = pe.PlaceID WHERE PersonID = @PersonID";
                 var parameters = new { PersonID = personID };
-                var person = connection.QuerySingle<Person>(sql,parameters);
+                var person = connection.QuerySingle<Person>(sql, parameters);
             }
         }
-        private void GetAllPersons()
+
+        public void GetAllPersons()
         {
-            using (var connection = new SqlConnection(connectionString))
+            string sql = "SELECT [PersonID],[LastName],[FirstName],[EMail],[TelNumber],[Address], pl.Place, pl.PostCode FROM [SimpleBank].[dbo].[Persons] pe" +
+                         "Inner Join Places pl on pe.PlaceID = pe.PlaceID";
+
+            using (var connection = new SqlConnection(ConnectionString))
             {
-                string sql = "SELECT [PersonID],[LastName],[FirstName],[EMail],[TelNumber],[Address], pl.Place, pl.PostCode FROM [SimpleBank].[dbo].[Persons] pe" +
-                            "Inner Join Places pl on pe.PlaceID = pe.PlaceID";
+
                 var person = connection.Query<Person>(sql).ToList();
             }
         }
-        private void CreatePerson(string firstName) { 
-            
+
+        /// <summary>
+        /// Creates the person.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        public void CreatePerson(string firstName)
+        {
+            const string sql = "INSERT INTO Person VALUES (@Firstname)";
+
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Execute(sql);
+            }
         }
     }
 }
