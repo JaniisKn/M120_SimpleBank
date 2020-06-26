@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace M120_SimpleBank.Model
 {
-    class Person
+    public class Person
     {
         public string LastName { get; set; }
         public string FirstName { get; set; }
