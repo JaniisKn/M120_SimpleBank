@@ -27,7 +27,8 @@ namespace M120_SimpleBank.Base
 
     public class BaseDataConnection : IBaseDataConnection
     {
-        private const string ConnectionString = @"Data Source=LAPTOP-M57FQKF2\SQLEXPRESS;Initial Catalog=M120_SimpleBankDB;Integrated Security=True";
+        private const string ConnectionString = @"Data Source=LAPTOP-M57FQKF2\SQLEXPRESS;Initial Catalog=M120_SimpleBankDB;Integrated Security=True"; //Janis
+        //private const string ConnectionString = @"Data Source=DESKTOP-FA5OAPQ\SQLEXPRESS;Initial Catalog=M120_SimpleBankDB;Integrated Security=True"; //Sacha
 
         public void GetPersonById(int personID)
         {
@@ -73,5 +74,6 @@ namespace M120_SimpleBank.Base
                 connection.Execute(sql, insertPersonParameters);
             }
         }
+
     }
 }
