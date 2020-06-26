@@ -15,6 +15,6 @@ namespace M120_SimpleBank.Model
         public string Address { get; set; }
         public string Place { get; set; }
         public int PostCode { get; set; }
-        public DateTime Birthday { get; set; }
+        public string Birthday { get; set; }
     }
 }
