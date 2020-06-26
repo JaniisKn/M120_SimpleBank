@@ -83,7 +83,7 @@ namespace M120_SimpleBank.Base
             {
                 Balance = 1000.5,//account.Balance,
                 PersonID = 1,//account.PersonID,
-                AccountTypeID = 1//account.AccountTypeID
+                AccountTypeID = 3//account.AccountTypeID
             };
 
             using (var connection = new SqlConnection(ConnectionString))
