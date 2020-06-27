@@ -13,14 +13,9 @@ namespace M120_SimpleBank.Base
 
     public interface IBaseDataConnection
     {
-        void GetPersonById(int personID);
-        void GetAllPersons();
-        AccountType GetAccountTypes();
-
-        /// <summary>
-        /// Creates the person.
-        /// </summary>
-        /// <param name="firstName">The first name.</param>
+        Person GetPersonById(int personID);
+        List<Person> GetAllPersons();
+        List<AccountType> GetAllAccountTypes();
         void CreatePerson(Person person);
         void CreateAccount(Account account);
     }
@@ -32,27 +27,56 @@ namespace M120_SimpleBank.Base
         private const string ConnectionString = @"Data Source=LAPTOP-M57FQKF2\SQLEXPRESS;Initial Catalog=M120_SimpleBankDB;Integrated Security=True"; //Janis
         //private const string ConnectionString = @"Data Source=DESKTOP-FA5OAPQ\SQLEXPRESS;Initial Catalog=M120_SimpleBankDB;Integrated Security=True"; //Sacha
 
-        public void GetPersonById(int personID)
+        public Person GetPersonById(int personID)
         {
+            string sql = "SELECT [PersonID],[LastName],[FirstName],[EMail],[TelNumber],[Address],[PostCode],[Place] FROM [dbo].[Persons] WHERE PersonID = @PersonID";
+            var parameters = new { PersonID = personID };
+
             using (var connection = new SqlConnection(ConnectionString))
-            {
-                string sql = "SELECT [PersonID],[LastName],[FirstName],[EMail],[TelNumber],[Address],[PostCode],[Place] FROM [dbo].[Persons] WHERE PersonID = @PersonID";
-                var parameters = new { PersonID = personID };
-                var person = connection.QuerySingle<Person>(sql, parameters);
+            {   
+                try
+                {
+                    return connection.QuerySingle<Person>(sql, parameters);
+                }
+                catch (Exception)
+                {
+                    return null;
+                } 
             }
         }
 
-        public void GetAllPersons()
+        public List<Person> GetAllPersons()
         {
+            string sql = "SELECT [PersonID],[LastName],[FirstName],[EMail],[TelNumber],[Address],[PostCode],[Place] FROM [dbo].[Persons]";
+            
             using (var connection = new SqlConnection(ConnectionString))
             {
-                string sql = "SELECT [PersonID],[LastName],[FirstName],[EMail],[TelNumber],[Address],[PostCode],[Place] FROM [dbo].[Persons]";
-                var person = connection.Query<Person>(sql).ToList();
+                try
+                {
+                    return connection.Query<Person>(sql).ToList();
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
             }
         }
 
-        public AccountType GetAccountTypes() {
-            return null;
+        public List<AccountType> GetAllAccountTypes() 
+        {
+            string sql = "SELECT [AccountTypeID],[name],[InterestRate] FROM [M120_SimpleBankDB].[dbo].[AccountTypes]";
+
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                try
+                {
+                    return connection.Query<AccountType>(sql).ToList();
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
         }
 
 
@@ -83,9 +107,9 @@ namespace M120_SimpleBank.Base
                                 "VALUES(@Balance, @PersonID, @AccountTypeID);";
             var insertAccountParameters = new
             {
-                Balance = 1000.5,//account.Balance,
-                PersonID = 1,//account.PersonID,
-                AccountTypeID = 3//account.AccountTypeID
+                Balance = account.Balance,
+                PersonID = account.PersonID,
+                AccountTypeID = account.AccountTypeID
             };
 
             using (var connection = new SqlConnection(ConnectionString))
