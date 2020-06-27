@@ -67,6 +67,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Base\BaseDataConnection.cs" />
+    <Compile Include="Model\AccountType.cs" />
     <Compile Include="ViewModel\CreateAccountViewModel.cs" />
     <Compile Include="ViewModel\CreateCustomerViewModel.cs" />
     <Compile Include="ViewModel\CustomerDetailViewModel.cs" />

@@ -15,6 +15,7 @@ namespace M120_SimpleBank.Base
     {
         void GetPersonById(int personID);
         void GetAllPersons();
+        AccountType GetAccountTypes();
 
         /// <summary>
         /// Creates the person.
@@ -48,6 +49,10 @@ namespace M120_SimpleBank.Base
                 string sql = "SELECT [PersonID],[LastName],[FirstName],[EMail],[TelNumber],[Address],[PostCode],[Place] FROM [dbo].[Persons]";
                 var person = connection.Query<Person>(sql).ToList();
             }
+        }
+
+        public AccountType GetAccountTypes() {
+            return null;
         }
 
 
