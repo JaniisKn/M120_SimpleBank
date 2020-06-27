@@ -50,10 +50,7 @@ namespace M120_SimpleBank.Base
             }
         }
 
-        /// <summary>
-        /// Creates the person.
-        /// </summary>
-        /// <param person="Includes all Information">The first name.</param>
+
         public void CreatePerson(Person person)
         {
             const string sql = "INSERT INTO [dbo].[Persons] ([LastName],[FirstName],[Birthday],[EMail],[TelNumber],[Address],[PostCode],[Place])" +
