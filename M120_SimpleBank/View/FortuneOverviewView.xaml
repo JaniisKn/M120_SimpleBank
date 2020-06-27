@@ -19,13 +19,13 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Vermögen Überischt" Grid.Column="0" Margin="20" FontSize="20"/>
+            <Label Content="Kunden Überischt" Grid.Column="0" Margin="20" FontSize="20"/>
             <Button x:Name="createAccount" Command="{Binding OpenCreateAccountCommand}" Content="Konto erstellen" Grid.Column="1" Margin="20, 30"/>
             <Button x:Name="createCostumer" Command="{Binding OpenCreateCustomerCommand}" Content="Kunde erfassen" Grid.Column="2" Margin="20, 30"/>
         </Grid>
 
         <Grid Grid.Row="1">
-            <ListBox x:Name="fortuneListBox" Margin="10,10,10,10"/>
+            <ListBox x:Name="customerListBox" Margin="10,10,10,10"/>
         </Grid>
     </Grid>
 </Window>

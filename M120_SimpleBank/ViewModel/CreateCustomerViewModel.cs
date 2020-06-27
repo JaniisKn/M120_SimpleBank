@@ -84,8 +84,6 @@ namespace M120_SimpleBank.ViewModel
         private void OnSavePerson(object sender)
         {
             this.BaseDataConnection.CreatePerson(NewPerson);
-
-
             FortuneOverviewView fortuneOverviewView = new FortuneOverviewView();
             fortuneOverviewView.Show();
             CloseEvent.Invoke();

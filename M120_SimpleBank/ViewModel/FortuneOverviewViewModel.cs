@@ -7,6 +7,7 @@ using System.Windows.Input;
 using M120_SimpleBank.View;
 using M120_SimpleBank.Base;
 using System.ComponentModel;
+using System.Windows.Controls;
 
 namespace M120_SimpleBank.ViewModel
 {
