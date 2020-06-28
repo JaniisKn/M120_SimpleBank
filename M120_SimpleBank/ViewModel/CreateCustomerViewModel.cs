@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using M120_SimpleBank.View;
-using System.ComponentModel;
 using System.Windows.Input;
 using M120_SimpleBank.Base;
 using M120_SimpleBank.Model;
@@ -29,65 +25,71 @@ namespace M120_SimpleBank.ViewModel
 
         public Person NewPerson
         {
-            get => newPerson ?? (newPerson = new Person());
+            get => _newPerson ?? (_newPerson = new Person());
             set
             {
-                FirstName = value;
-                LastName = value;
-                EMail = value;
-                TelNumber = value;
-                Address = value;
-                Place = value;
-                PostCode = value;
-                Birthday = value;
+                _newPerson = value;
                 RaisePropertyChanged();
             }
         }
+        private Person _newPerson;
         
         #endregion
 
         #region Commands
 
-        public ICommand GoBackCommand => goBackCommand ?? (goBackCommand = new RelayCommand(OnGoBack));
-        private ICommand goBackCommand;
+        #region Back
+
+        public ICommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new RelayCommand(OnGoBack));
+        private ICommand _goBackCommand;
 
         private void OnGoBack(object sender)
         {
-            FortuneOverviewView fortuneOverviewView = new FortuneOverviewView();
+            var fortuneOverviewView = new FortuneOverviewView();
             fortuneOverviewView.Show();
             CloseEvent.Invoke();
         }
 
-        public ICommand OpenCreateAccountCommand => openCreateAccountCommand ?? (openCreateAccountCommand = new RelayCommand(OnOpenCreateAccount));
-        private ICommand openCreateAccountCommand;
+        #endregion
+
+        #region Open create account
+
+        public ICommand OpenCreateAccountCommand => _openCreateAccountCommand ?? (_openCreateAccountCommand = new RelayCommand(OnOpenCreateAccount));
+        private ICommand _openCreateAccountCommand;
 
 
         private void OnOpenCreateAccount(object sender)
         {
-            CreateAccountView createAccountView = new CreateAccountView();
+            var createAccountView = new CreateAccountView();
             createAccountView.Show();
             CloseEvent.Invoke();
         }
-        
-        public ICommand SavePersonCommand => savePersonCommand ?? (savePersonCommand = new RelayCommand(OnSavePerson));
-        private ICommand savePersonCommand;
-        private Person newPerson;
-        private Person FirstName;
-        private Person LastName;
-        private Person EMail;
-        private Person TelNumber;
-        private Person Address;
-        private Person Place;
-        private Person PostCode;
-        private Person Birthday;
+
+        #endregion
+
+        #region Save Person
+
+        public ICommand SavePersonCommand => _savePersonCommand ?? (_savePersonCommand = new RelayCommand(OnSavePerson));
+        private ICommand _savePersonCommand;
 
         private void OnSavePerson(object sender)
         {
+            if (string.IsNullOrEmpty(NewPerson.FirstName.Trim()) || string.IsNullOrEmpty(NewPerson.LastName.Trim()) || string.IsNullOrEmpty(NewPerson.EMail.Trim()) || string.IsNullOrEmpty(NewPerson.Address.Trim()) || string.IsNullOrEmpty(NewPerson.Place.Trim()))
+            {
+                MessageBox.Show("Please check if you filled out all obligatory fields.");
+                return;
+            }
+
             this.BaseDataConnection.CreatePerson(NewPerson);
-            FortuneOverviewView fortuneOverviewView = new FortuneOverviewView();
+
+            MessageBox.Show("Successfully created new person.");
+
+            var fortuneOverviewView = new FortuneOverviewView();
             fortuneOverviewView.Show();
             CloseEvent.Invoke();
         }
+
+        #endregion
 
         #endregion
     }

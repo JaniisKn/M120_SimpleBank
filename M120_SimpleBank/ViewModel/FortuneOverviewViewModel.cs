@@ -1,36 +1,82 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using M120_SimpleBank.View;
 using M120_SimpleBank.Base;
-using System.ComponentModel;
-using System.Windows.Controls;
+using M120_SimpleBank.Model;
 
 namespace M120_SimpleBank.ViewModel
 {
     public class FortuneOverviewViewModel : Base.Base
     {
-        public Action CloseEvent { get; set; }
-        public ICommand OpenCreateAccountCommand => openCreateAccountCommand ?? (openCreateAccountCommand = new RelayCommand(OnOpenCreateAccount));
-        private ICommand openCreateAccountCommand;
-        public ICommand OpenCreateCustomerCommand => openCreateCustomerCommand ?? (openCreateCustomerCommand = new RelayCommand(OnOpenCreateCustomer));
-        private ICommand openCreateCustomerCommand;
+        #region Initialization
 
+        public FortuneOverviewViewModel()
+        {
+            Kunden = this.BaseDataConnection.GetAllPersons();
+        }
+
+        #endregion
+
+        #region Properties
+
+        #region Model
+
+        /// <summary>
+        /// Gets the base data connection.
+        /// </summary>
+        public IBaseDataConnection BaseDataConnection => _baseDataAccess ?? (_baseDataAccess = new BaseDataConnection());
+        private IBaseDataConnection _baseDataAccess;
+
+        #endregion
+
+        public IList<Person> Kunden
+        {
+            get => _kunden ?? (_kunden = new ObservableCollection<Person>());
+            set
+            {
+                _kunden = value;
+                RaisePropertyChanged();
+            }
+        }
+        private IList<Person> _kunden;
+
+        public Action CloseEvent { get; set; }
+
+        #endregion
+
+        #region Commands
+
+        #region Open create account
+
+        public ICommand OpenCreateAccountCommand => _openCreateAccountCommand ?? (_openCreateAccountCommand = new RelayCommand(OnOpenCreateAccount));
+        private ICommand _openCreateAccountCommand;
         private void OnOpenCreateAccount(object sender)
         {
-            CreateAccountView createAccountView = new CreateAccountView();
+            var createAccountView = new CreateAccountView();
             createAccountView.Show();
             CloseEvent.Invoke();
         }
+        
+        #endregion
+
+        #region Open create customer
+
+        public ICommand OpenCreateCustomerCommand => _openCreateCustomerCommand ?? (_openCreateCustomerCommand = new RelayCommand(OnOpenCreateCustomer));
+        private ICommand _openCreateCustomerCommand;
+
 
         private void OnOpenCreateCustomer(object sender) 
         {
-            CreateCustomerView createCustomerView = new CreateCustomerView();
+            var createCustomerView = new CreateCustomerView();
             createCustomerView.Show();
             CloseEvent.Invoke();
         }
+
+        #endregion
+
+        #endregion
     }
 }

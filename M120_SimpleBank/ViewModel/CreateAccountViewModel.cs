@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using M120_SimpleBank.View;
 using M120_SimpleBank.Base;
@@ -13,6 +11,16 @@ namespace M120_SimpleBank.ViewModel
 {
     public class CreateAccountViewModel : Base.Base
     {
+        #region Initialize
+
+        public CreateAccountViewModel()
+        {
+            Kunden = this.BaseDataConnection.GetAllPersons();
+            KontoTypes = this.BaseDataConnection.GetAllAccountTypes();
+        }
+
+        #endregion
+
         #region Properties
 
         #region Model
@@ -25,58 +33,104 @@ namespace M120_SimpleBank.ViewModel
 
         #endregion
 
-        public Action CloseEvent { get; set; }
-        
-        public Account NewAccount
+        public IList<Person> Kunden
         {
-            get => newAccount ?? (newAccount = new Account());
+            get => _kunden ?? (_kunden = new ObservableCollection<Person>());
             set
             {
-                newAccount = value;
-                PersonID = value;
-                AccountTypeID = value;
-                Balance = value;
-
+                _kunden = value;
                 RaisePropertyChanged();
             }
+        }
+        private IList<Person> _kunden;
+
+        public IList<AccountType> KontoTypes
+        {
+            get => _kontoTypes ?? (_kontoTypes = new ObservableCollection<AccountType>());
+            set
+            {
+                _kontoTypes = value;
+                RaisePropertyChanged();
+            }
+        }
+        private IList<AccountType> _kontoTypes;
+
+        public Account NewAccount
+        {
+            get => _newAccount ?? (_newAccount = new Account());
+            set
+            {
+                _newAccount = value;
+                RaisePropertyChanged();
+            }
+        }
+        private Account _newAccount;
+
+
+        public Action CloseEvent { get; set; }
+
+        #endregion
+
+        #region Comands
+
+        #region Back
+
+        public ICommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new RelayCommand(OnGoBack));
+        private ICommand _goBackCommand;
+
+        private void OnGoBack(object sender)
+        {
+            var fortuneOverviewView = new FortuneOverviewView();
+            fortuneOverviewView.Show();
+            CloseEvent.Invoke();
         }
 
         #endregion
 
-        public ICommand GoBackCommand => goBackCommand ?? (goBackCommand = new RelayCommand(OnGoBack));
-        private ICommand goBackCommand;
+        #region Open create customer
 
-        private void OnGoBack(object sender)
-        {
-            FortuneOverviewView fortuneOverviewView = new FortuneOverviewView();
-            fortuneOverviewView.Show();
-            CloseEvent.Invoke();
-        }
-        
-        public ICommand OpenCreateCustomerCommand => openCreateCustomerCommand ?? (openCreateCustomerCommand = new RelayCommand(OnOpenCreateCustomer));
-        private ICommand openCreateCustomerCommand;
+        public ICommand OpenCreateCustomerCommand => _openCreateCustomerCommand ?? (_openCreateCustomerCommand = new RelayCommand(OnOpenCreateCustomer));
+        private ICommand _openCreateCustomerCommand;
 
         private void OnOpenCreateCustomer(object sender) 
         {
-            CreateCustomerView createCustomerView = new CreateCustomerView();
+            var createCustomerView = new CreateCustomerView();
             createCustomerView.Show();
             CloseEvent.Invoke();
         }
 
-        public ICommand SaveAccountCommand => saveAccountCommand ?? (saveAccountCommand = new RelayCommand(OnSaveAccount));
-        private ICommand saveAccountCommand;
-        private Account newAccount;
-        private Account PersonID;
-        private Account AccountTypeID;
-        private Account Balance;
+        #endregion
+
+        #region Save account
+
+        public ICommand SaveAccountCommand => _saveAccountCommand ?? (_saveAccountCommand = new RelayCommand(OnSaveAccount));
+        private ICommand _saveAccountCommand;
 
         private void OnSaveAccount(object sender) 
         {
+            if (NewAccount.Balance <= 0)
+            {
+                MessageBox.Show("Your start capital has to be bigger than 0.");
+                return;
+            }
+
+            if (NewAccount.PersonID <= 0 || NewAccount.AccountTypeID <= 0)
+            {
+                MessageBox.Show("Please check if you selected a Person and a AccountTypes.");
+                return;
+            }
+
             this.BaseDataConnection.CreateAccount(NewAccount);
 
-            CreateCustomerView createCustomerView = new CreateCustomerView();
-            createCustomerView.Show();
+            MessageBox.Show("Successfully created new account.");
+
+            var fortuneOverviewView = new FortuneOverviewView();
+            fortuneOverviewView.Show();
             CloseEvent.Invoke();
         }
+
+        #endregion
+        
+        #endregion
     }
 }
