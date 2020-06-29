@@ -110,19 +110,19 @@ namespace M120_SimpleBank.ViewModel
         {
             if (NewAccount.Balance <= 0)
             {
-                MessageBox.Show("Your start capital has to be bigger than 0.");
+                MessageBox.Show("Das Startkapital muss grösser als 0CHF sein.");
                 return;
             }
 
             if (NewAccount.PersonID <= 0 || NewAccount.AccountTypeID <= 0)
             {
-                MessageBox.Show("Please check if you selected a Person and a AccountTypes.");
+                MessageBox.Show("Bitte eine Person und eine Kontoart auswählen.");
                 return;
             }
 
             this.BaseDataConnection.CreateAccount(NewAccount);
 
-            MessageBox.Show("Successfully created new account.");
+            MessageBox.Show("Neuers Konto wurde erfolgreich erstellt.");
 
             var fortuneOverviewView = new FortuneOverviewView();
             fortuneOverviewView.Show();

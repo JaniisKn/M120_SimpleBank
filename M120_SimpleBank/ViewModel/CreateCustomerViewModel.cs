@@ -76,13 +76,13 @@ namespace M120_SimpleBank.ViewModel
         {
             if (string.IsNullOrEmpty(NewPerson.FirstName.Trim()) || string.IsNullOrEmpty(NewPerson.LastName.Trim()) || string.IsNullOrEmpty(NewPerson.EMail.Trim()) || string.IsNullOrEmpty(NewPerson.Address.Trim()) || string.IsNullOrEmpty(NewPerson.Place.Trim()))
             {
-                MessageBox.Show("Please check if you filled out all obligatory fields.");
+                MessageBox.Show("Bitte alle mit * gekennzeichneten Felder ausfüllen.");
                 return;
             }
 
             this.BaseDataConnection.CreatePerson(NewPerson);
 
-            MessageBox.Show("Successfully created new person.");
+            MessageBox.Show("Neue Person wurde erstellt.");
 
             var fortuneOverviewView = new FortuneOverviewView();
             fortuneOverviewView.Show();
