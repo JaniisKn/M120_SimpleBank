@@ -1,4 +1,9 @@
---CREATE DATABASE M120_SimpleBankDB;
+GO
+
+CREATE DATABASE M120_SimpleBankDB;
+
+GO
+
 Use M120_SimpleBankDB;
 
 CREATE TABLE Persons(
