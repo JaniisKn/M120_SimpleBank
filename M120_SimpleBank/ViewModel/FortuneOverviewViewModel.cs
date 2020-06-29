@@ -6,6 +6,7 @@ using System.Windows.Input;
 using M120_SimpleBank.View;
 using M120_SimpleBank.Base;
 using M120_SimpleBank.Model;
+using System.Windows.Controls;
 
 namespace M120_SimpleBank.ViewModel
 {
@@ -48,6 +49,19 @@ namespace M120_SimpleBank.ViewModel
         #endregion
 
         #region Commands
+
+        #region Open Customer Detail
+
+        public ICommand OpenCustomerDetailCommand => _openCustomerDetailCommand ?? (_openCustomerDetailCommand = new RelayCommand(OnOpenCustomerDetailCommand));
+        private ICommand _openCustomerDetailCommand;
+        private void OnOpenCustomerDetailCommand(object sender)
+        {
+            var customerDetailView = new CustomerDetailView();
+            customerDetailView.Show();
+            CloseEvent.Invoke();
+        }
+
+        #endregion
 
         #region Open create account
 

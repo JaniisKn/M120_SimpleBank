@@ -24,7 +24,14 @@
             <Button Command="{Binding OpenCreateCustomerCommand}" Content="Kunde erfassen" Grid.Column="2" Margin="20, 30"/>
         </Grid>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Kunden}" CanUserResizeColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Kunden}" Name="dataGrid" CanUserResizeColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.InputBindings>
+                <KeyBinding Gesture="Shift" 
+                    Command="{Binding OpenCustomerDetailCommand}"
+                    CommandParameter="{Binding ElementName=dataGrid, Path=SelectedItems}">
+                </KeyBinding>
+            </DataGrid.InputBindings>
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Vorname" Binding="{Binding FirstName}"/>
                 <DataGridTextColumn Header="Nachname" Binding="{Binding LastName}"/>
